@@ -47,7 +47,7 @@
                                     <div class="form-group">
                                         <label for="first_name">First Name</label>
                                         <input type="text" class="form-control" id="first_name"
-                                            placeholder="Enter First Name" name="first_name">
+                                        placeholder="Enter First Name" name="first_name">
                                     </div>
                                     <div class="form-group">
                                         <label for="last_name">Last Name</label>
@@ -59,6 +59,15 @@
                                         <input type="email" class="form-control" id="email" placeholder="Enter Email"
                                             name="email">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-password">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" name="password_confirmation">
+                                    </div>
+                                    
 
                                 </div>
                                 <!-- /.card-body -->

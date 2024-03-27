@@ -42,11 +42,11 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{url('admin/dashboard')}}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> --}}
     </ul>
 
     <!-- Right navbar links -->
@@ -247,16 +247,16 @@
               </p>
             </a>
           </li>
-          {{-- <li class="nav-item">
-            <a href="#" class="nav-link">
+           <li class="nav-item">
+            <a href="{{route('categories')}}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Layout Options
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+                Categories
+                {{-- <i class="fas fa-angle-right left"></i> --}}
+                {{-- <span class="badge badge-info right">6</span> --}}
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            {{-- <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="pages/layout/top-nav.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -268,20 +268,20 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Top Navigation + Sidebar</p>
                 </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
+                <a href="{{route('products')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Boxed</p>
+                  <p>Products</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
+                <a href="{{route('banners')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar</p>
+                  <p>Banners</p>
                 </a>
               </li>
-              <li class="nav-item">
+              {{--<li class="nav-item">
                 <a href="pages/layout/fixed-sidebar-custom.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Fixed Sidebar <small>+ Custom Area</small></p>
@@ -852,7 +852,7 @@
 
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2024-2025 Fruitables.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0
@@ -905,7 +905,7 @@
 <!-- jQuery -->
 {{-- <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script> --}}
 <!-- Bootstrap 4 -->
-<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+{{-- <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script> --}}
 <!-- DataTables  & Plugins -->
 <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -919,10 +919,10 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-<!-- AdminLTE App -->
+{{-- <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('dist/js/demo.js')}}"></script> 
+<script src="{{asset('dist/js/demo.js')}}"></script>  --}}
 <!-- Page specific script -->
 <script>
   $(function() {
