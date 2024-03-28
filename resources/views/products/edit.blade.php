@@ -44,27 +44,32 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('products.update', $product->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="first_name">Title</label>
-                                        <input type="text" class="form-control" id="first_name" placeholder="Enter Title" name="title" value="{{ old('title', $product->title ?? '') }}">
+                                        <input type="text" class="form-control" id="first_name" placeholder="Enter Title"
+                                            name="title" value="{{ old('title', $product->title ?? '') }}">
                                     </div>
-                            
+
                                     <label for="editor" class="form-label">Description</label>
                                     <div data-mdb-input-init class="form-outline mb-4" id="editorWrapper">
                                         <textarea type="text" id="editor" name="description" class="form-control">{{ old('description', $product->description ?? '') }}</textarea>
                                     </div>
-                            
+
                                     <div class="form-group">
                                         <label for="category_id">Category</label>
                                         <select id="category_id" name="category_id" class="form-control">
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}
-                                                </option>
+                                                @if ($category->status == 1)
+                                                    <option value="{{ $category->id }}"
+                                                        {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                                                        {{ $category->name }}
+                                                    </option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
@@ -73,37 +78,52 @@
                                         <label for="image" style="font-weight: bold;">Uploaded Image</label>
                                         <!-- Display old image if available -->
                                         @if ($product->image)
-                                            <img src="{{ asset('uploads/' . $product->image) }}" width="100px" height="100px" alt="Old Image"
-                                                class="mt-2">
+                                            <img src="{{ asset('uploads/' . $product->image) }}" width="100px"
+                                                height="100px" alt="Old Image" class="mt-2">
                                         @elseif(old('image'))
                                             <img src="{{ old('image') }}" alt="Old Image" class="mt-2">
                                         @endif
                                     </div>
-                            
+
                                     <div class="form-group">
-                                        <label for="image" style="font-weight: bold;">Choose photo to upload New Image:</label>
+                                        <label for="image" style="font-weight: bold;">Choose photo to upload New
+                                            Image:</label>
                                         <input type="file" name="image" class="form-control" id="image">
                                     </div>
-                            
+
+                                    <div class="form-group">
+                                        <label for="price" style="font-weight: bold;">Price:</label>
+                                        <input type="text" name="price" class="form-control" id="price" value="{{ old('price', $product->price ?? '') }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="quantity" style="font-weight: bold;">Quantity:</label>
+                                        <input type="text" name="quantity" class="form-control" id="quantity" value="{{ old('quantity', $product->quantity ?? '') }}">
+                                    </div>
+
                                     <div class="form-group">
                                         <label style="font-weight: bold;">Status</label><br><br>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="status" id="status1" value="1" {{ old('status', $product->status ?? '') == 1 ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="radio" name="status" id="status1"
+                                                value="1"
+                                                {{ old('status', $product->status ?? '') == 1 ? 'checked' : '' }}>
                                             <label class="form-check-label" for="status1">Active</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="status" id="status0" value="0" {{ old('status', $product->status ?? '') == 0 ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="radio" name="status" id="status0"
+                                                value="0"
+                                                {{ old('status', $product->status ?? '') == 0 ? 'checked' : '' }}>
                                             <label class="form-check-label" for="status0">Inactive</label>
                                         </div>
                                     </div><br>
                                 </div>
                                 <!-- /.card-body -->
-                            
+
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
-                            
+
                         </div>
                         <!-- /.card -->
                     </div>
@@ -115,10 +135,10 @@
             {{-- </div><!-- /.container-fluid --> --}}
             <script>
                 ClassicEditor
-                    .create( document.querySelector( '#editor' ) )
-                    .catch( error => {
-                        console.error( error );
-                    } );
+                    .create(document.querySelector('#editor'))
+                    .catch(error => {
+                        console.error(error);
+                    });
             </script>
         </section>
         <!-- /.content -->

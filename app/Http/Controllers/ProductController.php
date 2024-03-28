@@ -18,7 +18,8 @@ class ProductController extends Controller
     function store(Request $request)
     {
         $validated = $request->validate([
-            // 'name' => 'required|string',
+             'title' => 'required|string',
+             'price' => 'required|numeric|between:0,99.99',
 
         ]);
 
@@ -35,7 +36,8 @@ class ProductController extends Controller
             $image->move($destinationPath, $name);
             $product->image = $name;
         }
-
+        $product->price = $request->price;
+        $product->quantity=$request->quantity;
         $product->status = $request->status;
         $product->save();
 
@@ -61,20 +63,24 @@ class ProductController extends Controller
 
     {
         $validated = $request->validate([
-            // 'name' => 'required|string',
-
+             'title' => 'required|string',
+            'price'=> 'required|numeric|between:0,99.99',
         ]);
+
         $product  = Product::find($id);
         $product->title = $request->title;
         $product->description = $request->description;
         $product->category_id = $request->input('category_id');
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('image'))
+        {
             $image = $request->file('image');
             $name = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/uploads');
             $image->move($destinationPath, $name);
             $product->image = $name;
         }
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
         $product->status = $request->status;
         $product->save();
         return redirect()->route('products')->with('message', 'Product updated successfully');

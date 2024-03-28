@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,3 +62,8 @@ Route::get('/banners', [BannerController::class, 'index'])->name('banners');
 Route::post('/banners/store', [BannerController::class, 'store'])->name('banners.store');
 Route::get('/banners/delete/{id}', [BannerController::class, 'destroy'])->name('banners.delete');
 
+// Shopping Cart Route
+Route::post('cart/store', [CartController::class, 'store'])->name('cart.store');
+Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('checkout', [CartController::class, 'checkoutindex'])->name('checkout.index');

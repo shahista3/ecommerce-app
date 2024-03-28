@@ -41,6 +41,8 @@
                                             <th>Description</th>
                                             <th>Category</th>
                                             <th>Image</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -50,7 +52,7 @@
                                             <tr>
                                                 <td>{{ $d->id }}</td>
                                                 <td>{{ $d->title }}</td>
-                                                <td>{!! Illuminate\Support\Str::words(htmlspecialchars_decode($d->description), 10, '...') !!}</td>
+                                                <td>{!! Illuminate\Support\Str::words(htmlspecialchars_decode($d->description), 7, '...') !!}</td>
                                                 <td>
                                                     @if ($d->category)
                                                         {{ $d->category->name }}
@@ -63,6 +65,9 @@
                                                 @else
                                                     <td class="text-center"><img src="{{ asset('uploads/' . $d->image) }}" alt="Image" height="50px" width="70px"></td>
                                                 @endif
+                                                
+                                                <td>{{ $d->price }}</td>
+                                                <td>{{ $d->quantity}}</td>
 
                                                 <td>
                                                     @if($d->status == 1)

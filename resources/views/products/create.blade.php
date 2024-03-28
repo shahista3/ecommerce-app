@@ -63,7 +63,9 @@
                                         <select id="category_id" name="category_id" class="form-control">
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @if ($category->status == 1)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
@@ -72,6 +74,17 @@
                                         <label for="image" style="font-weight: bold;">Choose photo to upload:</label>
                                         <input type="file" name="image" class="form-control" id="image">
                                     </div>
+                                   
+                                    <div class="form-group">
+                                        <label for="price" style="font-weight: bold;">Price:</label>
+                                        <input type="text" name="price" class="form-control" id="price">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="quantity" style="font-weight: bold;">Quantity:</label>
+                                        <input type="text" name="quantity" class="form-control" id="quantity">
+                                    </div>
+
 
                                     <div class="form-group">
                                         <label style="font-weight: bold;">Status</label><br><br>

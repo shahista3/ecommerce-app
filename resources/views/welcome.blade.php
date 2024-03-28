@@ -139,7 +139,7 @@
     </body>
 </html> --}}
 
-@extends('admin.layouts.app')
+@extends('layouts.app')
 @section('content')
     <!-- Modal Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -282,7 +282,7 @@
                             @foreach ($category as $cat)
                                 <li class="nav-item">
                                     <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill"
-                                        href="#tab-{{ $cat->id }}">
+                                        href="#tab-2{{ $cat->id }}">
                                         <span class="text-dark" style="width: 130px;">{{ $cat->name }}</span>
                                     </a>
                                 </li>
@@ -311,11 +311,22 @@
                                                 <h4>{{ $prod->title }}</h4>
                                                 <p>{!! Illuminate\Support\Str::words(htmlspecialchars_decode($prod->description), 10, '...') !!}</p>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99/kg</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-                                                    </a>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                                        {{ number_format((float) $prod->price, 2, '.', '') }}₹</p>
+                                                    <form action="{{ route('cart.store') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="id"
+                                                            value="{{ $prod->id }}">
+                                                        <input type="hidden" name="name"
+                                                            value="{{ $prod->title }}">
+                                                        <input type="hidden" name="price"
+                                                            value="{{ number_format((float) $prod->price, 2, '.', '') }}">
+                                                        <button type="submit"
+                                                            class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                            cart
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -326,36 +337,44 @@
                     </div>
                     {{-- Product Based on Category --}}
                     @foreach ($category as $cat)
-                        <div id="tab-{{ $cat->id }}" class="tab-pane fade show p-0">
+                        <div id="tab-2{{ $cat->id }}" class="tab-pane fade show p-0">
                             <div class="row g-4">
-                                @foreach ($cat->product as $prod)
-                                   
-                                        <div class="col-md-6 col-lg-4 col-xl-3">
-                                            <div class="rounded position-relative fruite-item">
-                                                <div class="fruite-img">
-                                                    <img src="{{ asset('uploads/' . $prod->image) }}"
-                                                        class="img-fluid rounded-top" alt=""
-                                                        style="width: 300px; height:250px;">
-                                                </div>
-                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                    style="top: 10px; left: 10px;">
-                                                    {{ $prod->category->name }}
-                                                </div>
-                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                    <h4>{{ $prod->title }}</h4>
-                                                    <p>{!! Illuminate\Support\Str::words(htmlspecialchars_decode($prod->description), 10, '...') !!}</p>
-                                                    <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <p class="text-dark fs-5 fw-bold mb-0">$4.99/kg</p>
-                                                        <a href="#"
+                                @foreach ($cat->product->where('category_id', $cat->id) as $prod)
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="fruite-img">
+                                                <img src="{{ asset('uploads/' . $prod->image) }}"
+                                                    class="img-fluid rounded-top" alt=""
+                                                    style="width: 300px; height:250px;">
+                                            </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                style="top: 10px; left: 10px;">
+                                                {{ $prod->category->name }}
+                                            </div>
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4>{{ $prod->title }}</h4>
+                                                <p>{!! Illuminate\Support\Str::words(htmlspecialchars_decode($prod->description), 10, '...') !!}</p>
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                                        {{ number_format((float) $prod->price, 2, '.', '') }}₹</p>
+                                                    <form action="{{ route('cart.store') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="id"
+                                                            value="{{ $prod->id }}">
+                                                        <input type="hidden" name="name"
+                                                            value="{{ $prod->title }}">
+                                                        <input type="hidden" name="price"
+                                                            value="{{ number_format((float) $prod->price, 2, '.', '') }}">
+                                                        <button type="submit"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary">
                                                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
                                                             cart
-                                                        </a>
-                                                    </div>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
@@ -439,9 +458,20 @@
                             <h4>{{ $p->title }}</h4>
                             <p>{!! Illuminate\Support\Str::words(htmlspecialchars_decode($p->description), 10, '...') !!}</p>
                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                <p class="text-dark fs-5 fw-bold mb-0">$7.99/kg</p>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                <p class="text-dark fs-5 fw-bold mb-0">{{ number_format((float) $p->price, 2, '.', '') }}₹
+                                </p>
+                                <form action="{{ route('cart.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $p->id }}">
+                                    <input type="hidden" name="name" value="{{ $p->title }}">
+                                    <input type="hidden" name="price"
+                                        value="{{ number_format((float) $p->price, 2, '.', '') }}">
+                                    <button type="submit"
+                                        class="btn border border-secondary rounded-pill px-3 text-primary">
+                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                        cart
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -474,7 +504,7 @@
                             style="width: 140px; height: 140px; top: 0; left: 0;">
                             <h1 style="font-size: 100px;">1</h1>
                             <div class="d-flex flex-column">
-                                <span class="h2 mb-0">50$</span>
+                                <span class="h2 mb-0">50₹</span>
                                 <span class="h4 text-muted mb-0">kg</span>
                             </div>
                         </div>
@@ -491,223 +521,101 @@
         <div class="container py-5">
             <div class="text-center mx-auto mb-5" style="max-width: 700px;">
                 <h1 class="display-4">Bestseller Products</h1>
-                <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which
-                    looks reasonable.</p>
+                <p>Here are our most popular products sold by US. You can shop from here...</p>
             </div>
+
+
             <div class="row g-4">
-                <div class="col-lg-6 col-xl-4">
-                    <div class="p-4 rounded bg-light">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <img src="{{ asset('UI/img/best-product-1.jpg') }}"
-                                    class="img-fluid rounded-circle w-100" alt="">
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
+                @foreach ($product as $prod)
+                    @if ($prod->status == 1)
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="p-4 rounded bg-light">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <img src="{{ asset('uploads/' . $prod->image) }}"
+                                            class="img-fluid rounded-circle w-100" style="width:150px; height:170px;"
+                                            alt="{{ $prod->title }}">
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="#" class="h5">{{ $prod->title }}</a>
+                                        <div class="d-flex my-3">
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star"></i>
+                                            {{-- @for ($i = 0; $i < $prod->rating; $i++)
+                                            <i class="fas fa-star text-primary"></i>
+                                        @endfor
+                                        @for ($i = $prod->rating; $i < 5; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor --}}
+                                        </div>
+                                        <h4 class="mb-3">3.12 ₹</h4>
+                                        <form action="{{ route('cart.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $prod->id }}">
+                                            <input type="hidden" name="name" value="{{ $prod->title }}">
+                                            <input type="hidden" name="price"
+                                                value="{{ number_format((float) $prod->price, 2, '.', '') }}">
+                                            <button type="submit"
+                                                class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                cart
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="p-4 rounded bg-light">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <img src="{{ asset('UI/img/best-product-2.jpg') }}"
-                                    class="img-fluid rounded-circle w-100" alt="">
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3">
+                    @endif
+                @endforeach
+            </div>
+
+            <div class="row mt-5">
+                @foreach ($product as $p1)
+                    @if ($p1->status == 1)
+                        <div class="col-md-6 col-lg-6 col-xl-3">
+                            <div class="text-center">
+                                <img src="{{ asset('uploads/' . $p1->image) }}" class="img-fluid rounded"
+                                    style="width:300px; height:250px;" alt={{ "$p1->title" }}>
+                                <div class="py-4">
+                                    <a href="#" class="h5">{{ $p1->title }}</a>
+                                    <div class="d-flex my-3 justify-content-center">
+                                        <i class="fas fa-star text-primary"></i>
+                                        <i class="fas fa-star text-primary"></i>
+                                        <i class="fas fa-star text-primary"></i>
+                                        <i class="fas fa-star text-primary"></i>
+                                        <i class="fas fa-star"></i>
+                                        {{-- @for ($i = 0; $i < $product->rating; $i++)
                                     <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
+                                @endfor
+                                @for ($i = $product->rating; $i < 5; $i++)
                                     <i class="fas fa-star"></i>
+                                @endfor --}}
+                                    </div>
+                                    <h4 class="mb-3">{{ number_format((float) $p1->price, 2, '.', '') }}₹</h4>
+                                    <form action="{{ route('cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $p1->id }}">
+                                        <input type="hidden" name="name" value="{{ $p1->title }}">
+                                        <input type="hidden" name="price"
+                                            value="{{ number_format((float) $p1->price, 2, '.', '') }}">
+                                        <button type="submit"
+                                            class="btn border border-secondary rounded-pill px-3 text-primary">
+                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                            cart
+                                        </button>
+                                    </form>
                                 </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="p-4 rounded bg-light">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <img src="{{ asset('UI/img/best-product-3.jpg') }}"
-                                    class="img-fluid rounded-circle w-100" alt="">
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="p-4 rounded bg-light">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <img src="{{ asset('UI/img/best-product-4.jpg') }}"
-                                    class="img-fluid rounded-circle w-100" alt="">
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="p-4 rounded bg-light">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <img src="{{ asset('UI/img/best-product-5.jpg') }}"
-                                    class="img-fluid rounded-circle w-100" alt="">
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="p-4 rounded bg-light">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <img src="{{ asset('UI/img/best-product-6.jpg') }}"
-                                    class="img-fluid rounded-circle w-100" alt="">
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="h5">Organic Tomato</a>
-                                <div class="d-flex my-3">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h4 class="mb-3">3.12 $</h4>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                        class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="text-center">
-                        <img src="{{ asset('UI/img/fruite-item-1.jpg') }}" class="img-fluid rounded" alt="">
-                        <div class="py-4">
-                            <a href="#" class="h5">Organic Tomato</a>
-                            <div class="d-flex my-3 justify-content-center">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <h4 class="mb-3">3.12 $</h4>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="text-center">
-                        <img src="{{ asset('UI/img/fruite-item-2.jpg') }}" class="img-fluid rounded" alt="">
-                        <div class="py-4">
-                            <a href="#" class="h5">Organic Tomato</a>
-                            <div class="d-flex my-3 justify-content-center">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <h4 class="mb-3">3.12 $</h4>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="text-center">
-                        <img src="{{ asset('UI/img/fruite-item-3.jpg') }}" class="img-fluid rounded" alt="">
-                        <div class="py-4">
-                            <a href="#" class="h5">Organic Tomato</a>
-                            <div class="d-flex my-3 justify-content-center">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <h4 class="mb-3">3.12 $</h4>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="text-center">
-                        <img src="{{ asset('UI/img/fruite-item-4.jpg') }}" class="img-fluid rounded" alt="">
-                        <div class="py-2">
-                            <a href="#" class="h5">Organic Tomato</a>
-                            <div class="d-flex my-3 justify-content-center">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <h4 class="mb-3">3.12 $</h4>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>
+
     <!-- Bestsaler Product End -->
 
 
