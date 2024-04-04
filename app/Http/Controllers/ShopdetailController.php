@@ -13,7 +13,8 @@ class ShopdetailController extends Controller
     {
         $category = Category::all();
         $product = Product::find($id);
-        return view('shopdetail', compact('category', 'product'));
+        $product1= Product::all();
+        return view('shopdetail', compact('category', 'product', 'product1'));
     }
 
     public function storeReview(Request $request)
