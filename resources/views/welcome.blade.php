@@ -20,7 +20,7 @@
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
                     @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                     @else
                         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
 
@@ -34,7 +34,7 @@
     </body>
 </html> --}}
 
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
     <!-- Modal Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -574,18 +574,17 @@
                         <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                             style="bottom: 30px; right: 0;"></i>
                         <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
-                                industry's standard dummy text ever since the 1500s,
+                            <p class="mb-0">We have been getting our fruit & veg delivered since the first lockdown and wouldn't shop anywhere else now.  
                             </p>
                         </div>
                         <div class="d-flex align-items-center flex-nowrap">
                             <div class="bg-secondary rounded">
-                                <img src="{{ asset('UI/img/testimonial-1.jpg') }}" class="img-fluid rounded"
+                                <img src="{{asset('UI/img/testimonial-1.jpg')}}" class="img-fluid rounded"
                                     style="width: 100px; height: 100px;" alt="">
                             </div>
                             <div class="ms-4 d-block">
-                                <h4 class="text-dark">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
+                                <h4 class="text-dark">Richa Sharma</h4>
+                                <p class="m-0 pb-3">Developer</p>
                                 <div class="d-flex pe-5">
                                     <i class="fas fa-star text-primary"></i>
                                     <i class="fas fa-star text-primary"></i>
@@ -602,18 +601,17 @@
                         <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                             style="bottom: 30px; right: 0;"></i>
                         <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
-                                industry's standard dummy text ever since the 1500s,
+                            <p class="mb-0">We have had 2 fruit and veg deliveries now and have been really pleased with the variety and quality.
                             </p>
                         </div>
                         <div class="d-flex align-items-center flex-nowrap">
                             <div class="bg-secondary rounded">
-                                <img src="{{ asset('UI/img/testimonial-1.jpg') }}" class="img-fluid rounded"
+                                <img src="{{asset('UI/img/testimonial-2.jpg')}}" class="img-fluid rounded"
                                     style="width: 100px; height: 100px;" alt="">
                             </div>
                             <div class="ms-4 d-block">
-                                <h4 class="text-dark">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
+                                <h4 class="text-dark">Neha Bagga</h4>
+                                <p class="m-0 pb-3">House Wife</p>
                                 <div class="d-flex pe-5">
                                     <i class="fas fa-star text-primary"></i>
                                     <i class="fas fa-star text-primary"></i>
@@ -630,18 +628,17 @@
                         <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                             style="bottom: 30px; right: 0;"></i>
                         <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
-                                industry's standard dummy text ever since the 1500s,
+                            <p class="mb-0">I bought a fresh vegetables from fruitables. The buying experience was smooth and fast. They accept various payment methods.
                             </p>
                         </div>
                         <div class="d-flex align-items-center flex-nowrap">
                             <div class="bg-secondary rounded">
-                                <img src="{{ asset('UI/img/testimonial-1.jpg') }}" class="img-fluid rounded"
+                                <img src="{{asset('UI/img/testimonial-3.jpg')}}" class="img-fluid rounded"
                                     style="width: 100px; height: 100px;" alt="">
                             </div>
                             <div class="ms-4 d-block">
-                                <h4 class="text-dark">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
+                                <h4 class="text-dark">Archana Jaiswal</h4>
+                                <p class="m-0 pb-3">Teacher</p>
                                 <div class="d-flex pe-5">
                                     <i class="fas fa-star text-primary"></i>
                                     <i class="fas fa-star text-primary"></i>

@@ -40,4 +40,12 @@ class WelcomeController extends Controller
     {
         return view('sales');
     }
+    public function aboutus()
+    {
+        return view('aboutus');
+    }
+    public function FAQ()
+    {
+        return view('FAQ');
+    }
 }

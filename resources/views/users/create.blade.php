@@ -67,7 +67,14 @@
                                         <label for="confirm-password">Confirm Password</label>
                                         <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" name="password_confirmation">
                                     </div>
-                                    
+
+                                    <div class="form-group">
+                                        <label for="dropdown">Select a Value</label>
+                                        <select class="form-control" id="dropdown" name="role_id">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
 
                                 </div>
                                 <!-- /.card-body -->

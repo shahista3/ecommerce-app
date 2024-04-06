@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
@@ -43,7 +43,7 @@
                         <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
                         <div>
                             <h4>Address</h4>
-                            <p class="mb-2">123 Street, India</p>
+                            <p class="mb-2">123 Street, Navi Mumbai, India</p>
                         </div>
                     </div>
                     <div class="d-flex p-4 rounded mb-4 bg-white">

@@ -1,8 +1,7 @@
-@extends('layouts.app')
-
+@extends('layouts.master')
 @section('content')
-    <div class="container mt-5 pt-5">
-        <header class="text-center mb-5">
+    <div class="container mt-5 pt-3">
+        <header class="text-center mb-3 mt-5 pt-5">
             <h1 class="mt-3" style="font-family: 'Arial', sans-serif;">Terms of Use</h1>
         </header>
         <main>

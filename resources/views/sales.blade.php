@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
     <div class="container mt-5 pt-5">
-        <header class="text-center mb-5">
+        <header class="text-center mb-5 mt-5 pt-3">
             <h1 class="mt-3" style="font-family: 'Arial', sans-serif;">Sales and Refund Policy</h1>
         </header>
         <main>

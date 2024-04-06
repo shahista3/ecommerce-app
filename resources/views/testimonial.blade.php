@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
 <!-- Single Page Header start -->
  <div class="container-fluid page-header py-5">

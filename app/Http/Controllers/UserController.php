@@ -20,9 +20,10 @@ class UserController extends Controller
 
    function store(Request $request)
     { 
+        
         $validated = $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
+            // 'first_name' => 'required|string',
+            // 'last_name' => 'required|string',
             'email' => 'required',
             'password' => 'required|min:8|confirmed',
         ]);
@@ -35,6 +36,7 @@ class UserController extends Controller
         $data->last_name = $request->last_name;
         $data->email = $request->email;
         $data->password = $hashedPassword;
+        $data->role_id = $request->role_id;
         $data->save();
         return redirect('users')->with('message', 'User added successfully');
     }
